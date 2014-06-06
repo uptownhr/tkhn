@@ -1,5 +1,5 @@
 var request = require('request'),
-    Q = require('q');
+    Q = require('q'),
     cheerio = require('cheerio'),
     url = require('url'),
     mongoose = require('mongoose');
@@ -60,18 +60,27 @@ module.exports = function(html){
     }
 
     this.savePosts = function(cb){
+        if(cb == undefined){ cb = function(){}; }
         var t = this;
         var counter = 0;
-        this.posts.forEach( function(v,k){
-            Post.findUpdateCreate(v,function(err,res){
-                if(err){ cb(err,res); }
-                counter++;
 
-                if(counter == t.posts.length){
-                    cb(err)
-                }
+        Post.update({},{active:0},{multi: true}, function(err,res){
+            t.posts.forEach( function(v,k){
+                v.active = 1;
+                Post.findUpdateCreate(v,function(err,res){
+                    if(err){ cb(err,res); }
+                    counter++;
+                    if(counter == t.posts.length){
+                        cb(err)
+                    }
+                });
             });
-        });
+        })
     }
 
+    this.getActive = function(cb){
+        Post.find({active:true}, function(err,res){
+            cb(err,res);
+        });
+    }
 }
