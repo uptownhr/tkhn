@@ -4,13 +4,11 @@ var request = require('request'),
     url = require('url'),
     mongoose = require('mongoose');
 
+var Post = require('../models/post.js');
 
 var db = mongoose.connection;
 db.on('error', function(err){ console.log(err)} );
-mongoose.connect('mongodb://localhost/tdbhn');
-
-
-var Post = require('../models/post.js')(mongoose);
+mongoose.connect('mongodb://192.168.56.254/tdbhn');
 
 var $ = cheerio.load("<html></html>");
 

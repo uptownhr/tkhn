@@ -10,13 +10,18 @@
   "author": "James Lee <jlee@penguin.ws> (http://jlee.biz/)",
   "license": "ISC",
   "dependencies": {
-    "q": "^1.0.1",
     "cheerio": "^0.16.0",
-    "url": "^0.10.1",
     "mongoose": "^3.8.12",
-    "node-extend": "^0.2.0"
+    "node-extend": "^0.2.0",
+    "npm-watch": "0.0.0",
+    "q": "^1.0.1",
+    "request": "^2.36.0",
+    "url": "^0.10.1"
   },
   "watch": {
-    "test": "{get-hn,tests,models}/*.js"
+    "test": "{watch-hn,get-hn,tests,models}/*.js"
+  },
+  "devDependencies": {
+    "npm-watch": "0.0.0"
   }
 }
