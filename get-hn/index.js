@@ -15,6 +15,7 @@ var $ = cheerio.load("<html></html>");
 module.exports = function(html){
     this.html = null;
     this.posts = null;
+
     this.setHtml = function(html){
         this.html = html;
     }

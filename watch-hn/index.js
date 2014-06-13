@@ -16,8 +16,19 @@ module.exports = function(html){
     this.track = function(url,cb){
         var now = Date.now();
 
-        request( url, function(e,r,b){
+        var options = {
+            "rejectUnauthorized": false,
+            "url": url
+        };
+
+        request( options, function(e,r,b){
             var domain = URL.parse(url);
+
+            if(e){
+                console.log(e);
+                cb(e);
+                return false;
+            }
 
             if(r.statusCode == 200 && b){
                 diff = Date.now() - now;
@@ -31,6 +42,7 @@ module.exports = function(html){
 
 
             }else{
+                console.log(r.statusCode);
                 cb(true,e);
             }
         });
